@@ -1,0 +1,46 @@
+README for valhal
+==================
+
+About
+-----
+
+valhal is a semantic game engine.
+
+
+Prerequisites
+-------------
+
+Python    http://www.python.org
+
+
+Installation
+------------
+
+Unzip the file, then at the command line run
+
+    python setup.py install
+
+
+Documentation
+-------------
+
+To read the API documentation, open a shell / DOS window, navigate to the
+valhal directory, and run
+
+    pydoc valhal
+
+You can create a HTML version using
+
+    pydoc -w valhal
+
+
+License
+-------
+
+valhal is licensed under the GPL. See the file COPYING for details.
+
+
+Author
+------
+
+Florian Berger <mail@florian-berger.de>

@@ -1,0 +1,9 @@
+syntax: glob
+
+*.pyc
+*.rst
+dist/
+MANIFEST*
+*~
+design
+website
