@@ -32,13 +32,67 @@ STDERR_HANDLER = logging.StreamHandler()
 STDERR_HANDLER.setFormatter(STDERR_FORMATTER)
 LOGGER.addHandler(STDERR_HANDLER)
 
-def main():
-    """Main function, for IDE convenience.
+class Scene:
+    """A timespan in valhal.Game, with start and end behaviour.
+
+       Attributes:
+
+       Scene.set
+           An instance of valhal.Set.
     """
 
-    return
+    def __init__(self, set):
+        """Initialise.
+        """
 
-if __name__ == "__main__":
+        self.set = set
 
-    main()
+        return
 
+class Set:
+    """A collection of valhal.Location instances.
+
+       Attributes:
+
+       Set.locations
+           A list of valhal.Location instances.
+    """
+
+    def __init__(self):
+        """Initialise.
+        """
+
+        self.locations = []
+
+        return
+
+class Actor:
+    """An entity, acting with a defined behaviour, controlled by a human or computer.
+    """
+
+    pass
+
+class Prop:
+    """An entity, static and without behaviour.
+    """
+
+    pass
+
+
+class Game:
+    """Represents a running game.
+    """
+
+    pass
+
+class Client:
+    """The game client.
+    """
+
+    pass
+
+class Server:
+    """The game server.
+    """
+
+    pass
