@@ -22,7 +22,6 @@
 
 import logging
 
-
 VERSION = "0.1.0"
 
 LOGGER = logging.getLogger("valhal")
@@ -50,21 +49,10 @@ class Scene:
         return
 
 class Set:
-    """A collection of valhal.Location instances.
-
-       Attributes:
-
-       Set.locations
-           A list of valhal.Location instances.
+    """A place inhabited by valhal.Actor and valhal.Prop instances.
     """
 
-    def __init__(self):
-        """Initialise.
-        """
-
-        self.locations = []
-
-        return
+    pass
 
 class Actor:
     """An entity, acting with a defined behaviour, controlled by a human or computer.
