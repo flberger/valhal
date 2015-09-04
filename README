@@ -21,6 +21,17 @@ Unzip the file, then at the command line run
     python setup.py install
 
 
+Running
+-------
+
+To run valhal games, use one of the following command line commands:
+
+    $ python3 -m valhal.run server
+
+    $ python3 -m valhal.run client
+
+    $ python3 -m valhal.run standalone
+
 Documentation
 -------------
 

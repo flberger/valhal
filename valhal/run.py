@@ -1,6 +1,14 @@
 """valhal - a semantic game engine
 
    Copyright (c) 2015 Florian Berger <mail@florian-berger.de>
+
+   To run valhal games, use one of the following command line commands:
+
+       $ python3 -m valhal.run server
+
+       $ python3 -m valhal.run client
+
+       $ python3 -m valhal.run standalone
 """
 
 # This file is part of valhal.

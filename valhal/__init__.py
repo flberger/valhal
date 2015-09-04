@@ -1,6 +1,9 @@
 """valhal - a semantic game engine
 
    Copyright (c) 2015 Florian Berger <mail@florian-berger.de>
+
+   See documentation of valhal.run on how to run client, server, and
+   stanalone modes.
 """
 
 # This file is part of valhal.
