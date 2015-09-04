@@ -21,6 +21,9 @@
 # Work started on 03. Sep 2015.
 
 import logging
+# Server
+import socketserver
+import json
 
 VERSION = "0.1.0"
 
@@ -81,6 +84,54 @@ class Client:
 
 class Server:
     """The game server.
+
+       Attributes:
+
+       Server.port
+           The TCP port to listen on.
     """
 
-    pass
+    def __init__(self, port = 22000):
+        """Initialise the server.
+           port is the TCP port to listen on.
+        """
+
+        self.logger = logging.getLogger("valhal.server")
+        self.logger.setLevel(logging.DEBUG)
+        self.logger.addHandler(STDERR_HANDLER)
+
+        logger_wrapper = self.logger
+
+        class ValhalRequestHandler(socketserver.StreamRequestHandler):
+
+            def handle(self):
+                """Handle a request using the Python file API.
+                """
+
+                data = self.rfile.readline().strip()
+
+                logger_wrapper.debug("{0} incoming: '{1}'".format(self.client_address, data))
+
+                self.wfile.write(json.dumps({"Error": "TODO: ValhalRequestHandler.handle() must return something useful"}) + "\n")
+
+                return
+
+            # End of class ValhalRequestHandler
+
+        self.port = port
+
+        # Listen on all interfaces
+        #
+        self.server = socketserver.TCPServer(("0.0.0.0", self.port), ValhalRequestHandler)
+
+        return
+
+    def serve(self):
+        """Serve, listening to Server.port.
+        """
+
+        self.logger.info("Serving on port {0}".format(self.port))
+
+        self.server.serve_forever()
+
+        return

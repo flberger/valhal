@@ -33,7 +33,7 @@ def main():
 
     if sys.argv[1] == "server":
 
-        sys.stderr.write("TODO: Run server\n")
+        valhal.Server().serve()
 
     elif sys.argv[1] == "client":
 
