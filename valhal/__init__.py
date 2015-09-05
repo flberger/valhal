@@ -24,11 +24,6 @@
 # Work started on 03. Sep 2015.
 
 import logging
-# Server:
-import socketserver
-import json
-# Client:
-import socket
 
 VERSION = "0.1.0"
 
@@ -83,74 +78,47 @@ class Game:
 
 class Client:
     """The game client.
+
+       Attributes:
+
+       Client.server
+           An instance of valhal.Server. Needs to be injected before
+           Client.run() is being called.
     """
 
-    port = 22000
-
-    def connect(self):
-        """Establish a connection to the server, possibly involving user interaction.
+    def __init__(self):
+        """Initialising.
         """
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # server needs to be injected before Client.run() is being
+        # called.
+        #
+        self.server = None
 
-        try:
-            # TODO: Using localhost
-            sock.connect(("localhost", self.port))
-            sock.sendall(bytes(json.dumps({"HELO": "Client calling"}) + "\n", encoding = "utf8"))
-        finally:
-            sock.close()
+        self.logger = logging.getLogger("valhal.client")
+        self.logger.setLevel(logging.DEBUG)
+
+        return
+        
+    def run(self):
+        """Run the client by connecting to and interacting with the server, and providing a user interface.
+        """
+
+        if self.server is None:
+
+            raise RuntimeError("Client.server is not set, cannot run without a server connection. You must set Client.server before Client.run() can be called.")
 
         return
 
 class Server:
     """The game server.
-
-       Attributes:
-
-       Server.port
-           The TCP port to listen on.
     """
 
-    def __init__(self, port = 22000):
-        """Initialise the server.
-           port is the TCP port to listen on.
+    def __init__(self):
+        """Initialise.
         """
 
         self.logger = logging.getLogger("valhal.server")
         self.logger.setLevel(logging.DEBUG)
-
-        logger_wrapper = self.logger
-
-        class ValhalRequestHandler(socketserver.StreamRequestHandler):
-
-            def handle(self):
-                """Handle a request using the Python file API.
-                """
-
-                data = str(self.rfile.readline(), encoding = "utf8").strip()
-
-                logger_wrapper.debug("{0} incoming: '{1}'".format(self.client_address, data))
-
-                self.wfile.write(bytes(json.dumps({"Error": "TODO: ValhalRequestHandler.handle() must return something useful"}) + "\n", encoding = "utf8"))
-
-                return
-
-            # End of class ValhalRequestHandler
-
-        self.port = port
-
-        # Listen on all interfaces
-        #
-        self.server = socketserver.TCPServer(("0.0.0.0", self.port), ValhalRequestHandler)
-
-        return
-
-    def serve(self):
-        """Serve, listening to Server.port.
-        """
-
-        self.logger.info("Serving on port {0}".format(self.port))
-
-        self.server.serve_forever()
 
         return

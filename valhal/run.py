@@ -29,6 +29,7 @@
 # Work started on 04. Sep 2015.
 
 import valhal
+import valhal.net
 import sys
 
 def main():
@@ -41,11 +42,23 @@ def main():
 
     if sys.argv[1] == "server":
 
-        valhal.Server().serve()
+        if "--net" in sys.argv:
+
+            valhal.net.NetServer().serve()
+
+        else:
+
+            valhal.Server().serve()
 
     elif sys.argv[1] == "client":
 
-        valhal.Client().connect()
+        if "--net" in sys.argv:
+
+            valhal.net.NetClient().connect()
+
+        else:
+
+            valhal.Client().run()
 
     elif sys.argv[1] == "standalone":
 
