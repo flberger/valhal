@@ -45,7 +45,7 @@ def main():
 
     elif sys.argv[1] == "client":
 
-        sys.stderr.write("TODO: Run client\n")
+        valhal.Client().connect()
 
     elif sys.argv[1] == "standalone":
 

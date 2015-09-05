@@ -24,9 +24,11 @@
 # Work started on 03. Sep 2015.
 
 import logging
-# Server
+# Server:
 import socketserver
 import json
+# Client:
+import socket
 
 VERSION = "0.1.0"
 
@@ -83,7 +85,22 @@ class Client:
     """The game client.
     """
 
-    pass
+    port = 22000
+
+    def connect(self):
+        """Establish a connection to the server, possibly involving user interaction.
+        """
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        try:
+            # TODO: Using localhost
+            sock.connect(("localhost", self.port))
+            sock.sendall(bytes(json.dumps({"HELO": "Client calling"}) + "\n", encoding = "utf8"))
+        finally:
+            sock.close()
+
+        return
 
 class Server:
     """The game server.
@@ -110,11 +127,11 @@ class Server:
                 """Handle a request using the Python file API.
                 """
 
-                data = self.rfile.readline().strip()
+                data = str(self.rfile.readline(), encoding = "utf8").strip()
 
                 logger_wrapper.debug("{0} incoming: '{1}'".format(self.client_address, data))
 
-                self.wfile.write(json.dumps({"Error": "TODO: ValhalRequestHandler.handle() must return something useful"}) + "\n")
+                self.wfile.write(bytes(json.dumps({"Error": "TODO: ValhalRequestHandler.handle() must return something useful"}) + "\n", encoding = "utf8"))
 
                 return
 
