@@ -32,7 +32,7 @@ VERSION = "0.1.0"
 
 LOGGER = logging.getLogger("valhal")
 LOGGER.setLevel(logging.DEBUG)
-STDERR_FORMATTER = logging.Formatter("valhal [%(levelname)s] %(funcName)s(): %(message)s (l.%(lineno)d)")
+STDERR_FORMATTER = logging.Formatter("{name} [{levelname}] {funcName}(): {message} (l.{lineno})", style = "{")
 STDERR_HANDLER = logging.StreamHandler()
 STDERR_HANDLER.setFormatter(STDERR_FORMATTER)
 LOGGER.addHandler(STDERR_HANDLER)
@@ -101,7 +101,6 @@ class Server:
 
         self.logger = logging.getLogger("valhal.server")
         self.logger.setLevel(logging.DEBUG)
-        self.logger.addHandler(STDERR_HANDLER)
 
         logger_wrapper = self.logger
 
