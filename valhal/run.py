@@ -31,6 +31,8 @@
 import valhal
 import valhal.net
 import sys
+# Standalone:
+import threading
 
 def main():
     """Main method, for IDE convenience.
@@ -62,7 +64,33 @@ def main():
 
     elif sys.argv[1] == "standalone":
 
-        sys.stderr.write("TODO: Run standalone\n")
+        server = valhal.Server()
+
+        client = valhal.Client()
+
+        client.__dict__["server"] = server
+
+        client_thread = threading.Thread(target = client.run, name = "valhal-client-{0}".format(client.uuid))
+
+        valhal.LOGGER.info("Starting client thread.")
+
+        client_thread.start()
+
+        server_thread = threading.Thread(target = server.serve, name = "valhal-server")
+
+        valhal.LOGGER.info("Starting server thread.")
+
+        server_thread.start()
+
+        valhal.LOGGER.info("Waiting for server thread to terminate.")
+
+        server_thread.join()
+        
+        valhal.LOGGER.info("Waiting for client thread to terminate.")
+
+        client_thread.join()
+
+        valhal.LOGGER.info("All threads terminated, exiting.")
 
     else:
 
